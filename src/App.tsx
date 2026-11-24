@@ -174,6 +174,17 @@ function App() {
     return () => clearInterval(slideTimer);
   }, []);
 
+  // Automatically hide dashboard success messages after 3.5 seconds
+useEffect(() => {
+  if (!ticketSuccess) return;
+
+  const successTimer = window.setTimeout(() => {
+    setTicketSuccess("");
+  }, 3500);
+
+  return () => window.clearTimeout(successTimer);
+}, [ticketSuccess]);
+
   // Check the user's login session
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
